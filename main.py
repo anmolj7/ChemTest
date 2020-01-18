@@ -52,7 +52,7 @@ class Game:
             self.popup('Invalid Input! Make sure the element\'s symbol is correct!')
         else:
             #Checking if answer is correct!
-            correct_ans = self.elements[get_index_by_val(self.elements, self.label.get())]
+            correct_ans = self.elements[get_index_by_val(self.elements, self.label.get())][1]
             if correct_ans == curr_input:
                 self.popup("Correct Answer!")
                 self.element_rand()
@@ -80,7 +80,7 @@ class Game:
 
     def show_ans(self):
         el = self.elements[get_index_by_val(self.elements, self.label.get())]
-        self.popup(f'The symbol of the atomic number {self.label.get()} is: {el[0]}, and the name of the element is: {el[2]}')
+        self.popup(f'The symbol of the atomic number {self.label.get()} is: {el[1]}, and the name of the element is: {el[2]}')
         
     def new_game(self):
         self.app.destroy()
