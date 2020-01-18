@@ -46,10 +46,10 @@ class Game:
 
     def submit_ans(self):
         curr_input = self.input.get()
-        
         #check if the current input is a valid element or not...
         if not get_index_by_val(self.elements, curr_input):
             self.popup('Invalid Input! Make sure the element\'s symbol is correct!')
+            self.Counter += 1
         else:
             #Checking if answer is correct!
             correct_ans = self.elements[get_index_by_val(self.elements, self.label.get())][1]
@@ -60,15 +60,15 @@ class Game:
                 self.popup('Incorrect Answer!')
                 self.show_hint()
                 self.Counter += 1
-                if self.Counter == 5:
-                    self.popup('Game over!')
-                    choice = tkMessageBox.askquestion("ChemTest", "Do you want to try again?")
-                    if choice == 'yes':
-                        self.new_game()
-                    else:
-                        self.app.destroy()
-                        exit()
-                self.tries.set(f'Tries Left: {5-self.Counter}')
+        if self.Counter == 5:
+            self.popup('Game over!')
+            choice = tkMessageBox.askquestion("ChemTest", "Do you want to try again?")
+            if choice == 'yes':
+                self.new_game()
+            else:
+                self.app.destroy()
+                exit()
+        self.tries.set(f'Tries Left: {5-self.Counter}')
         self.input.set("")
 
     def element_rand(self):
@@ -81,7 +81,8 @@ class Game:
     def show_ans(self):
         el = self.elements[get_index_by_val(self.elements, self.label.get())]
         self.popup(f'The symbol of the atomic number {self.label.get()} is: {el[1]}, and the name of the element is: {el[2]}')
-        
+        self.new_game()
+
     def new_game(self):
         self.app.destroy()
         Game()
